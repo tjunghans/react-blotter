@@ -79,5 +79,26 @@ describe('component', () => {
     assert.equal($('.blotter tbody tr td', div)[0].textContent, 'Ok');
   });
 
+  it('renders markup', () => {
+    render({
+      columnConfig: {
+        status: {},
+        action: {
+          markup(row) {
+            return React.DOM.button({ 'data-id': row.id }, 'Update');
+          }
+        }
+      },
+      data: [{
+        status: 'ok',
+        id: 1
+      }]
+    });
+
+    const button = $('.blotter tbody tr td:nth-child(2) button', div)[0];
+    assert.equal(button.textContent, 'Update');
+    assert.equal(button.getAttribute('data-id'), 1);
+  });
+
 });
 

@@ -1,11 +1,11 @@
 /*eslint-env browser*/
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Blotter from '..';
 const DOM = React.DOM;
-const propTypes = React.PropTypes;
 
 // Example 1
-React.render(React.createElement(Blotter, {
+ReactDOM.render(React.createElement(Blotter, {
   columnConfig: {
     type: {
       header: 'Type',
@@ -14,15 +14,15 @@ React.render(React.createElement(Blotter, {
     time: {
       className: 'time maturity',
       header: DOM.span({ style: { color: 'green' } }, 'Time'),
-      markup: function (data) {
-        return DOM.div({ className: 'value' }, data)
+      markup: (data) => {
+        return DOM.div({ className: 'value' }, data);
       }
     },
     client: {
       className: 'client',
       header: 'Client',
-      markup: function (data) {
-        return DOM.div({ className: 'value' }, data)
+      markup: (data) => {
+        return DOM.div({ className: 'value' }, data);
       }
     }
   },

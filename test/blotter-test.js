@@ -1,9 +1,9 @@
 /*eslint-env mocha, browser*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-addons-test-utils';
 import assert from 'assert';
-//import * as sinon from 'sinon';
+import * as sinon from 'sinon';
 import blotter from '../lib/blotter';
 
 function $(selector, context) {
@@ -98,6 +98,30 @@ describe('component', () => {
     const button = $('.blotter tbody tr td:nth-child(2) button', div)[0];
     assert.equal(button.textContent, 'Update');
     assert.equal(button.getAttribute('data-id'), 1);
+  });
+
+  it('registers row onclick event', () => {
+    const spy = sinon.spy();
+    render({
+      columnConfig: {
+        action: {
+          markup(row, props) {
+            return React.DOM.button({
+              onClick: props.onUpdate.bind(this, row.id)
+            }, 'Update');
+          }
+        }
+      },
+      data: [{
+        id: 1
+      }],
+      onUpdate: spy
+    });
+
+    ReactTestUtils.Simulate.click(div.querySelector('button'));
+
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledWith(spy, 1);
   });
 
 });

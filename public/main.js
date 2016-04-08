@@ -25,37 +25,12 @@ function deleteRow(id) {
 
 function formatRow(data) {
   return {
-    id: data.id,
+    tradeId: data.tradeId,
     type: data.type,
     time: data.maturity || 'n/a',
     client: data.client
   };
 }
-
-const Row = React.createClass({
-  displayName: 'BlotterRow',
-  propTypes: {
-    data: React.PropTypes.object
-  },
-  render() {
-    const p = this.props;
-    const data = formatRow(p.data);
-    return (
-      React.DOM.tr(null,
-        React.DOM.td({ className: 'type' }, data.type),
-        React.DOM.td({ className: 'time maturity' },
-          DOM.div({ className: 'value' }, data.time)),
-        React.DOM.td({ className: 'client' },
-          DOM.div({ className: 'value' }, data.client)),
-        React.DOM.td({ className: 'action' },
-          DOM.button({ onClick: this._onDelete }, 'delete'))
-      )
-    );
-  },
-  _onDelete() {
-    deleteRow(this.props.data.tradeId);
-  }
-});
 
 
 // Example 1
@@ -82,11 +57,28 @@ ReactDOM.render(React.createElement(Blotter, {
     action: {
       className: 'action',
       header: 'Action',
-      markup(row) {
-        return DOM.button(null, 'delete');
+      markup(row, props) {
+        return DOM.button({
+          onClick: props.onDelete.bind(this, row.tradeId)
+        }, 'delete');
+      }
+    },
+    details: {
+      className: 'details',
+      header: 'Details',
+      markup(row, props) {
+        return DOM.button({
+          onClick: props.onShowDetails.bind(this, row.tradeId)
+        }, 'show details');
       }
     }
   },
-  rowComponent: Row,
-  data: data.rows
+  formatRow,
+  data: data.rows,
+  onDelete(tradeId) {
+    deleteRow(tradeId);
+  },
+  onShowDetails() {
+    console.log('showing details for ', this.props.data.tradeId);
+  }
 }), document.querySelector('#blotter-1'));

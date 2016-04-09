@@ -89,14 +89,14 @@ ReactDOM.render(React.createElement(Blotter, {
   The following properties are possible:
   - `header`: String, table column header value
   - `className`: className that is added to th and td elements
-  - `markup(row, props): function, if set will be used to render
+  - `markup(row, props)`: function, if set will be used to render
     an element into the td element. `row` is an item of `data`. `props`
     is a reference, to the row component's react props.
 - `formatRow(row)`: function used to format row data
 - `data`: an array of data to display
 
-You can give a row a css class value by including the property `
-`rowClassName in the returned obect of `formatRow(row)` or by already
+You can give a row a css class value by including the property
+`rowClassName` in the returned obect of `formatRow(row)` or by already
 having it on `data[index]`.
 
 All properties are passed to the row component and made available to

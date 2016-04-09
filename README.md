@@ -95,6 +95,10 @@ ReactDOM.render(React.createElement(Blotter, {
 - `formatRow(row)`: function used to format row data
 - `data`: an array of data to display
 
+You can give a row a css class value by including the property `
+`rowClassName in the returned obect of `formatRow(row)` or by already
+having it on `data[index]`.
+
 All properties are passed to the row component and made available to
 the columnConfig, markup function.
 

@@ -28,7 +28,8 @@ function formatRow(data) {
     tradeId: data.tradeId,
     type: data.type,
     time: data.maturity || 'n/a',
-    client: data.client
+    client: data.client,
+    rowClassName: data.type.toLowerCase() === 'spot' ? 'spot' : ''
   };
 }
 
@@ -56,7 +57,7 @@ ReactDOM.render(React.createElement(Blotter, {
     },
     action: {
       className: 'action',
-      header: 'Action',
+      header: DOM.span({ style: { color: 'red' } }, 'Action'),
       markup(row, props) {
         return DOM.button({
           onClick: props.onDelete.bind(this, row.tradeId)
@@ -78,7 +79,7 @@ ReactDOM.render(React.createElement(Blotter, {
   onDelete(tradeId) {
     deleteRow(tradeId);
   },
-  onShowDetails() {
+  onShowDetails(tradeId) {
     console.log('showing details for ', this.props.data.tradeId);
   }
 }), document.querySelector('#blotter-1'));

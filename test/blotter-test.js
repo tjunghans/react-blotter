@@ -124,5 +124,19 @@ describe('component', () => {
     sinon.assert.calledWith(spy, 1);
   });
 
+  it('adds css class name to data row', () => {
+    render({
+      columnConfig: {
+        status: {}
+      },
+      data: [{
+        status: 'ok',
+        rowClassName: 'foo'
+      }]
+    });
+
+    assert.equal($('tbody tr.foo', div).length, 1);
+  });
+
 });
 

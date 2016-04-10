@@ -2,7 +2,7 @@
   "name": "blotter",
   "description": "React based blotter table",
   "author": "Thomas Junghans <thomas.junghans@gmail.com>",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "./lib/blotter",
   "eslintConfig": {
     "root": true,

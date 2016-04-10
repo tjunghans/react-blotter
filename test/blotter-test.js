@@ -40,8 +40,8 @@ describe('component', () => {
     });
 
     assert.equal($('.blotter', div).length, 1);
-    assert.equal($('.blotter th', div).length, 1);
-    assert.equal($('.blotter th', div)[0].textContent, 'status');
+    assert.equal($('.blotter thead th', div).length, 1);
+    assert.equal($('.blotter thead th', div)[0].textContent, 'status');
   });
 
   it('renders thead and tbody', () => {
@@ -136,6 +136,86 @@ describe('component', () => {
     });
 
     assert.equal($('tbody tr.foo', div).length, 1);
+  });
+
+  it('applies colspan to column', () => {
+    render({
+      columnConfig: {
+        amount: {
+          header: 'Amount',
+          columns: {
+            ccy: {
+              markup(row, props) { return row.amount.ccy; }
+            },
+            value: {}
+          }
+        }
+      },
+      data: [{
+        amount: {
+          ccy: 'CHF',
+          value: '1234.56'
+        }
+      }]
+    });
+
+    assert.equal($('thead th', div).length, 1);
+    assert.equal($('thead th', div)[0].getAttribute('colspan'), 2);
+    assert.equal($('tbody td', div).length, 2);
+    assert.equal($('tbody td', div)[0].textContent, 'CHF');
+    assert.equal($('tbody td', div)[1].textContent, '1234.56');
+  });
+
+  it('applies css class to colspan column', () => {
+    render({
+      columnConfig: {
+        amount: {
+          header: 'Amount',
+          columns: {
+            ccy: {
+              className: 'amount ccy'
+            },
+            value: {}
+          }
+        }
+      },
+      data: [{
+        amount: {
+          ccy: 'CHF',
+          value: '1234.56'
+        }
+      }]
+    });
+
+    assert.equal($('tbody td.amount.ccy', div).length, 1);
+    assert.equal($('tbody td.amount.ccy', div)[0].textContent, 'CHF');
+  });
+
+  it('adds markup colspan column', () => {
+    render({
+      columnConfig: {
+        amount: {
+          header: 'Amount',
+          columns: {
+            ccy: {
+              markup(row, props) {
+                return React.DOM.span({ className: 'tag' }, row.amount.ccy);
+              }
+            },
+            value: {}
+          }
+        }
+      },
+      data: [{
+        amount: {
+          ccy: 'CHF',
+          value: '1234.56'
+        }
+      }]
+    });
+
+    assert.equal($('tbody td span.tag', div).length, 1);
+    assert.equal($('tbody td span.tag', div)[0].textContent, 'CHF');
   });
 
 });

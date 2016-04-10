@@ -10,11 +10,13 @@ const data = {
       tradeId: 0,
       type: 'Spot',
       maturity: '2016-04-04T13:10:53+02:00',
-      client: 'Thomas Junghans'
+      client: 'Thomas Junghans',
+      amount: { ccy: 'CHF', value: '1234.56' }
     }, {
       tradeId: 1,
       type: 'Forward',
-      client: 'Max Muster'
+      client: 'Max Muster',
+      amount: { ccy: 'USD', value: '6789.10' }
     }
   ]
 };
@@ -29,6 +31,7 @@ function formatRow(data) {
     type: data.type,
     time: data.maturity || 'n/a',
     client: data.client,
+    amount: data.amount,
     rowClassName: data.type.toLowerCase() === 'spot' ? 'spot' : ''
   };
 }
@@ -53,6 +56,17 @@ ReactDOM.render(React.createElement(Blotter, {
       header: 'Client',
       markup(row) {
         return DOM.div({ className: 'value' }, row.client);
+      }
+    },
+    amount: {
+      header: 'Amount',
+      columns: {
+        ccy: {
+          markup(row, props) {
+            return DOM.span({ className: 'tag' }, row.amount.ccy);
+          }
+        },
+        value: {}
       }
     },
     action: {

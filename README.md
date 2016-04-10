@@ -92,6 +92,7 @@ ReactDOM.render(React.createElement(Blotter, {
   - `markup(row, props)`: function, if set will be used to render
     an element into the td element. `row` is an item of `data`. `props`
     is a reference, to the row component's react props.
+  - `columns`: object with columns.
 - `formatRow(row)`: function used to format row data
 - `data`: an array of data to display
 

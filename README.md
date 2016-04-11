@@ -91,8 +91,13 @@ ReactDOM.render(React.createElement(Blotter, {
   - `className`: className that is added to th and td elements
   - `markup(row, props)`: function, if set will be used to render
     an element into the td element. `row` is an item of `data`. `props`
-    is a reference, to the row component's react props.
-  - `columns`: object with columns.
+    is a reference, to the row component's react props.`
+  - `width`: width in px which is applied to the colgroup
+  - `columns`: object with columns. Each column can have the following
+    properties, similar to hose of the top level:
+    - `className`
+    - `markup(row, props)`
+    - `width
 - `formatRow(row)`: function used to format row data
 - `data`: an array of data to display
 

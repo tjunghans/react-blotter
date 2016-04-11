@@ -218,5 +218,38 @@ describe('component', () => {
     assert.equal($('tbody td span.tag', div)[0].textContent, 'CHF');
   });
 
+  it('sets columns width', () => {
+    render({
+      columnConfig: {
+        status: {},
+        amount: {
+          header: 'Amount',
+          columns: {
+            ccy: {
+              markup(row, props) {
+                return React.DOM.span({ className: 'tag' }, row.amount.ccy);
+              },
+              width: 50
+            },
+            value: {
+              width: 80
+            }
+          }
+        }
+      },
+      data: [{
+        amount: {
+          ccy: 'CHF',
+          value: '1234.56'
+        }
+      }]
+    });
+
+    assert.equal($('colgroup', div).length, 1);
+    assert.equal($('colgroup>col', div).length, 3);
+    assert.equal($('colgroup col', div)[1].getAttribute('width'), 50);
+    assert.equal($('colgroup col', div)[2].getAttribute('width'), 80);
+  });
+
 });
 

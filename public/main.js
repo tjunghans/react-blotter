@@ -42,14 +42,16 @@ ReactDOM.render(React.createElement(Blotter, {
   columnConfig: {
     type: {
       header: 'Type',
-      className: 'type'
+      className: 'type',
+      width: 100
     },
     time: {
       className: 'time maturity',
       header: DOM.span({ style: { color: 'green' } }, 'Time'),
       markup(row) {
         return DOM.div({ className: 'value' }, row.time);
-      }
+      },
+      width: 300
     },
     client: {
       className: 'client',
@@ -64,9 +66,10 @@ ReactDOM.render(React.createElement(Blotter, {
         ccy: {
           markup(row, props) {
             return DOM.span({ className: 'tag' }, row.amount.ccy);
-          }
+          },
+          width: 60
         },
-        value: {}
+        value: { width: 120 }
       }
     },
     action: {

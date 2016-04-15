@@ -58,7 +58,8 @@ ReactDOM.render(React.createElement(Blotter, {
       header: 'Client',
       markup(row) {
         return DOM.div({ className: 'value' }, row.client);
-      }
+      },
+      minWidth: 150
     },
     amount: {
       header: 'Amount',
@@ -79,7 +80,8 @@ ReactDOM.render(React.createElement(Blotter, {
         return DOM.button({
           onClick: props.onDelete.bind(this, row.tradeId)
         }, 'delete');
-      }
+      },
+      width: 100
     },
     details: {
       className: 'details',
@@ -88,7 +90,8 @@ ReactDOM.render(React.createElement(Blotter, {
         return DOM.button({
           onClick: props.onShowDetails.bind(this, row.tradeId)
         }, 'show details');
-      }
+      },
+      width: 100
     }
   },
   formatRow,
